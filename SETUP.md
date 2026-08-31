@@ -92,7 +92,7 @@ cd Thinking-Cube
 git checkout claude/openclop-cloud-run-setup-diieos
 cd infra/terraform
 
-ssh-keygen -t ed25519 -f ~/.ssh/openclaw_vm -N ""
+ssh-keygen -t rsa -b 4096 -f ~/.ssh/openclaw_vm -N ""   # Cloud Shell runs in FIPS mode; ed25519 is rejected there
 
 terraform init
 terraform apply \
