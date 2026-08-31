@@ -48,10 +48,17 @@ run a handful of copy-paste commands in Cloud Shell to apply it. See
   `infra/terraform/variables.tf` can be bumped (0/1/2) and re-applied if
   that happens.
 - **First-boot automation**: cloud-init installs Docker + prerequisites
-  unattended. Installing OpenClaw itself and pairing WhatsApp/Telegram is
-  left for an interactive SSH session (via Cloud Shell) — that step needs a
-  human for the QR-code pairing regardless, so it runs against the live
-  official installer rather than a copy baked into this repo.
+  unattended, and starts Watchtower (auto-updates/restarts any running
+  container, including OpenClaw once deployed, daily) so ongoing
+  maintenance doesn't need SSH or manual relay either. Installing OpenClaw
+  itself and pairing WhatsApp/Telegram is left for an interactive SSH
+  session (via Cloud Shell) — that step needs a human for the QR-code
+  pairing regardless, so it runs against the live official installer rather
+  than a copy baked into this repo.
+- **Day-to-day use**: once OpenClaw is live, you interact with it directly
+  over WhatsApp/Telegram — not through Claude relaying commands. The
+  Cloud-Shell copy/paste is a one-time (or rare) provisioning cost, not a
+  recurring one.
 - **Secrets**: never committed here (see `.gitignore`). The OCI API key you
   originally provided already passed through the chat transcript and turned
   out to be unusable from this session anyway (network policy) — it's been

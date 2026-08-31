@@ -26,3 +26,10 @@ runcmd:
   - mkdir -p /opt/openclaw
   - chown ubuntu:ubuntu /opt/openclaw
   - touch /opt/openclaw/READY_FOR_ONBOARDING
+  # Auto-updates any running container (OpenClaw included, once deployed)
+  # so ongoing maintenance doesn't require anyone SSHing in or Claude
+  # relaying commands. Checks daily, prunes old images after updating.
+  - >
+    docker run -d --name watchtower --restart unless-stopped
+    -v /var/run/docker.sock:/var/run/docker.sock
+    containrrr/watchtower --interval 86400 --cleanup
