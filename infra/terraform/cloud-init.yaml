@@ -29,7 +29,10 @@ runcmd:
   # Auto-updates any running container (OpenClaw included, once deployed)
   # so ongoing maintenance doesn't require anyone SSHing in or Claude
   # relaying commands. Checks daily, prunes old images after updating.
+  # containrrr/watchtower was archived Dec 2025 (unmaintained); its frozen
+  # image crash-loops against current Docker Engine (API version mismatch).
+  # nickfedor/watchtower is the actively maintained fork.
   - >
     docker run -d --name watchtower --restart unless-stopped
     -v /var/run/docker.sock:/var/run/docker.sock
-    containrrr/watchtower --interval 86400 --cleanup
+    nickfedor/watchtower --interval 86400 --cleanup
