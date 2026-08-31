@@ -78,11 +78,31 @@ run a handful of copy-paste commands in Cloud Shell to apply it. See
 - [x] User runs Terraform apply in OCI Cloud Shell — VM live in `us-phoenix-1`
       (public IP intentionally not committed here; run `terraform output` in
       Cloud Shell from `infra/terraform/` to retrieve it)
-- [ ] SSH in (via Cloud Shell), install OpenClaw, run `openclaw onboard`
-- [ ] Obtain an Anthropic API key (console.anthropic.com — separate from any
-      Claude.ai subscription) or other LLM provider key, configure OpenClaw
+- [x] SSH in (via Cloud Shell), install OpenClaw, onboard (agent
+      `Thinking_Cube_Test_v1`, access mode: full)
+- [x] Configure LLM: **DeepSeek V4 Pro** (not Anthropic — user's choice), as a
+      custom OpenAI-compatible provider via `openclaw config set`
+      (`models.providers.deepseek`, `agents.defaults.models` allowlist,
+      `agents.defaults.model.primary`). Live-verified via
+      `openclaw infer model run` — real 200 from api.deepseek.com.
 - [ ] Pair WhatsApp/Telegram — **requires the user's phone**
 - [ ] Verify 24/7 resilience (docker restart policy, survives VM reboot)
+
+### Working notes
+
+- `containrrr/watchtower` is archived/unmaintained (Dec 2025); cloud-init now
+  uses `nickfedor/watchtower` instead.
+- Cloud Shell runs in FIPS mode — `ssh-keygen -t ed25519` fails silently
+  there; use `-t rsa -b 4096`.
+- Always run VM commands as `ssh ... '<command>'` (command as a single ssh
+  argument), never a bare `ssh host` followed by separate pasted commands —
+  the latter doesn't hold a persistent session in this workflow and commands
+  silently land in Cloud Shell instead of the VM.
+- OpenClaw's own docs (docs.openclaw.ai) are blocked by this Claude session's
+  network policy, same as Oracle's and DeepSeek's. Working pattern: ask the
+  user to fetch a specific doc URL and paste its content back.
+- `openclaw config set ... --dry-run` validates against the real schema
+  without writing — use it before every non-trivial config write.
 
 ## Next step: apply the Terraform, in OCI Cloud Shell
 
