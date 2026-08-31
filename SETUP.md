@@ -75,7 +75,9 @@ run a handful of copy-paste commands in Cloud Shell to apply it. See
       pivoted to Cloud Shell + Terraform
 - [x] Author Terraform (VCN/subnet/IGW/security list/instance/cloud-init) —
       see `infra/terraform/`
-- [ ] **User runs Terraform apply in OCI Cloud Shell** (commands below)
+- [x] User runs Terraform apply in OCI Cloud Shell — VM live in `us-phoenix-1`
+      (public IP intentionally not committed here; run `terraform output` in
+      Cloud Shell from `infra/terraform/` to retrieve it)
 - [ ] SSH in (via Cloud Shell), install OpenClaw, run `openclaw onboard`
 - [ ] Obtain an Anthropic API key (console.anthropic.com — separate from any
       Claude.ai subscription) or other LLM provider key, configure OpenClaw
